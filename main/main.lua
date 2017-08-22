@@ -24,7 +24,7 @@ require '..'
 
 local args = lapp [[
   -m,--model  (default lr)           Model architecture: lr(logistic regression),ica(_count, _binary),lstm, rnn]
-  -d,--dataset (default cora)        Dataset: cora,citeseer,webkb,webkb-syn
+  -d,--dataset_path (default NoiseGraphDataset/cora)   Dataset: path to the dataset
   -p,--partition (default 0.8)       Partition: percentage for training data
   -l,--learning_rate (default 0.1)   Learning rate
   -e,--epochs (default 10)           Number of training epochs
@@ -33,39 +33,39 @@ local args = lapp [[
   -b,--batch_size (default 50)       Batch size
   -r,--random_seed (default 100)     Random seed
   -w,--step_wise (default 0)         Use stepwise training or not for attentive grnn model
+  -n,--noise_suffix(default '')      Noise suffix 
 ]]
-
-
 
 torch.manualSeed(args.random_seed)
 local epoch_num = args.epochs
 local content_path, cites_path, label_path, meta_path, feature_path
-local dataset_path = "./dataset"
 
-
-if args.dataset == "cora" then
-    content_path = dataset_path.."/cora/cora.content"
-    cites_path = dataset_path.."/cora/cora.cites"
-    label_path = dataset_path.."/cora/cora.label"
-    meta_path = dataset_path.."/cora/cora.meta"
-    feature_path = dataset_path.."/cora/cora.feature"
-elseif args.dataset == "citeseer" then
-    cites_path = dataset_path.."/citeseer/citeseer.cites"
-    label_path = dataset_path.."/citeseer/citeseer.label"
-    meta_path = dataset_path.."/citeseer/citeseer.meta"
-    feature_path = dataset_path.."/citeseer/citeseer.feature.1000"
-elseif args.dataset == "webkb" or args.dataset == "webkb-syn" then
-    if args.dataset == "webkb" then
-        cites_path = dataset_path.."/WebKB/WebKB.cites"
-    else
-        cites_path = dataset_path.."/WebKB/WebKB.sim.cites"
-    end
-    label_path = dataset_path.."/WebKB/WebKB.label"
-    meta_path = dataset_path.."/WebKB/WebKB.meta"
-    feature_path = dataset_path.."/WebKB/WebKB.feature"
+printf ("--------------------------------------------------------------------------------")
+printf ("Arguments \n")
+for k,v in pairs(args) do
+      print(k .. ": " .. v)
 end
-local noise_suffix=""
-cites_path = cites_path..noise_suffix
+
+dataset_path_comps = util.split_string(args.dataset_path, '/')
+dataset_prefix = dataset_path_comps[#dataset_path_comps]
+
+content_path = paths.concat(args.dataset_path, dataset_prefix .. ".content")
+cites_path = paths.concat(args.dataset_path, dataset_prefix .. ".cites")
+label_path = paths.concat(args.dataset_path, dataset_prefix .. ".label")
+feature_path = paths.concat(args.dataset_path, dataset_prefix .. ".feature")
+meta_path = paths.concat(args.dataset_path, dataset_prefix .. ".meta")
+
+if args.noise_suffix ~= "" then
+    cites_path = cites_path..'.'..args.noise_suffix
+end
+
+printf ("--------------------------------------------------------------------------------")
+printf ("Dataset paths \n")
+printf ("Content file: %s\n", content_path)
+printf ("Cites file: %s\n", cites_path)
+printf ("Label file: %s\n", label_path)
+printf ("Feature file: %s\n", feature_path)
+printf ("Meta file: %s\n", meta_path)
 
 printf("read data from: \n  %s\n  %s\n", cites_path, feature_path)
 
