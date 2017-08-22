@@ -65,7 +65,7 @@ Each dataset need to be assigned with a `prefix`. Then the folder structure and 
 * **GRNN**
 * **GRANN**
 
-Please refer to our paper [cikm2017][#citation] for more details of the model.
+Please refer to our paper [cikm2017](#Citation) for more details of the model.
 
 ### Acknowledgement
 
