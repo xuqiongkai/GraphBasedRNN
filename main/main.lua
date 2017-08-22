@@ -23,17 +23,17 @@ require '..'
 
 
 local args = lapp [[
-  -m,--model  (default lr)           Model architecture: lr(logistic regression),ica(_count, _binary),lstm, rnn]
+  -m,--model  (default lr)                             Model architecture: lr(logistic regression),ica(_count, _binary),lstm, rnn]
   -d,--dataset_path (default NoiseGraphDataset/cora)   Dataset: path to the dataset
-  -p,--partition (default 0.8)       Partition: percentage for training data
-  -l,--learning_rate (default 0.1)   Learning rate
-  -e,--epochs (default 10)           Number of training epochs
-  -h,--hidden_dim    (default 200)   LSTM/RNN hidden state dimension
-  -s,--steps    (default 2)          LSTM/RNN steps to spread local tree
-  -b,--batch_size (default 50)       Batch size
-  -r,--random_seed (default 100)     Random seed
-  -w,--step_wise (default 0)         Use stepwise training or not for attentive grnn model
-  -n,--noise_suffix(default '')      Noise suffix 
+  -p,--partition (default 0.8)                         Partition: percentage for training data
+  -l,--learning_rate (default 0.1)                     Learning rate
+  -e,--epochs (default 10)                             Number of training epochs
+  -h,--hidden_dim    (default 200)                     LSTM/RNN hidden state dimension
+  -s,--steps    (default 2)                            LSTM/RNN steps to spread local tree
+  -b,--batch_size (default 50)                         Batch size
+  -r,--random_seed (default 100)                       Random seed
+  -w,--step_wise (default 0)                           Use stepwise training or not for attentive grnn model
+  -n,--noise_suffix(default '')                        Noise suffix 
 ]]
 
 torch.manualSeed(args.random_seed)
