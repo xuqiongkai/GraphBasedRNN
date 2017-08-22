@@ -16,13 +16,12 @@ Datasets used for the evaluation in our work has been processed to the supported
 
 * Run the desired models by `main.lua` script. To evaluate on a dataset, simply specify the folder path with its prefix
  
-	```bash
-	th main/main.lua -d  NoiseGraphDataset/citeseer <arguments>
-``` 
+```bash
+th main/main.lua -d  NoiseGraphDataset/citeseer <arguments>
+```
 
 Please refer to `th main/main.lua -h` for complete list of parameters.
 
-Please refer to 
 
 ### Dataset format
 
